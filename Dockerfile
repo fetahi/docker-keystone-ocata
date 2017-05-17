@@ -3,7 +3,7 @@ FROM python:2-alpine
 RUN apk update && apk add git build-base openssl-dev libffi-dev linux-headers
 WORKDIR /usr/local/src/
 RUN git clone -b stable/ocata  https://git.openstack.org/openstack/keystone.git
-RUN sed -i 's/>=/==/g' /usr/local/src/keystone/requirements.txt && pip install -r /usr/local/src/keystone/requirements.txt
+RUN sed -i '/Babel/d /pbr/d' /usr/local/src/keystone/requirements.txt && pip install -r /usr/local/src/keystone/requirements.txt
 RUN pip install /usr/local/src/keystone/
 RUN pip install uwsgi
 RUN apk del git build-base openssl-dev linux-headers
